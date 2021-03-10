@@ -38,5 +38,5 @@ jobs:
       - name: Run shift left demo
         run: |
           chmod +x shiftleft
-          git clone git@github.com:chkp-ecarbon/demo-app.git
+          git clone https://github.com:chkp-ecarbon/demo-app.git
           ./shiftleft code-scan -s ./demo-app
