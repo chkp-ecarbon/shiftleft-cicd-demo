@@ -1,3 +1,5 @@
+
+
 # This is a basic workflow to help you get started with Actions
 
 name: CI
@@ -27,10 +29,10 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo This IS EDDIE
       env:
         CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-        CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }} 
+        CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+      run: echo This IS EDDIE 
      
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
