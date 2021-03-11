@@ -40,7 +40,7 @@ jobs:
          CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
          CHKP_CLOUDGUARD_SECRET: $(( secrets.CHKP_CLOUDGUARD_SECRET }}
         run: |
-         chmod +x shiftleft
+         chmod +x ./shiftleft
          git clone https://github.com/chkp-ecarbon/demo-app.git
          ./shiftleft code-scan -s ./demo-app
          
