@@ -44,13 +44,17 @@ jobs:
          git clone https://github.com/chkp-ecarbon/demo-app.git
          ./shiftleft code-scan -s ./demo-app
          
-      # Runs IAC Test
-      - name: Run iac-assessment
-        env:
-          CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-          CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
-        run: | 
-         git clone https://github.com/chkp-ecarbon/demo-app.git
-         chmod +x ./shiftleft
-         ./shiftleft iac-assessment -r -64 -p ./demo-app/terraform
+         steps:
+         # Run this second job
+         - uses: actions/checkout@v2
+      
+         # Runs IAC Test
+         - name: Run iac-assessment
+           env:
+             CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+             CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+           run: | 
+            git clone https://github.com/chkp-ecarbon/demo-app.git
+            chmod +x ./shiftleft
+            ./shiftleft iac-assessment -r -64 -p ./demo-app/terraform
          
