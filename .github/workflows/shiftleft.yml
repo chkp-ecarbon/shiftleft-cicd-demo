@@ -58,5 +58,5 @@ jobs:
             run: | 
              git clone https://github.com/chkp-ecarbon/demo-app.git
              chmod +x ./shiftleft
-             ./shiftleft iac-assessment -r -64 -p ./demo-app/terraform
+             ./shiftleft iac-assessment -r -64 -p ./terraform
          
