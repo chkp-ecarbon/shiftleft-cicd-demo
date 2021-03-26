@@ -15,27 +15,16 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+jobs:
+  build:  
+    runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        env:
-         CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-         CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
-        run: echo This IS EDDIE 
-     
-      # Runs a set of commands using the runners shell
-      - name: Run shift left demo
+      # Runs a code scan
+      - name: Run shiftleft code scan
         env:
           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
@@ -43,14 +32,19 @@ jobs:
          chmod +x ./shiftleft
          git clone https://github.com/chkp-ecarbon/demo-app.git
          ./shiftleft code-scan -s ./demo-app
-     
-      # Runs IAC Test for Terraform
-      - name: Terraform
-        env:
-          CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-          CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
-        run: | 
-          git clone https://github.com/chkp-ecarbon/demo-app.git
-          chmod +x ./shiftleft
-          ./shiftleft iac-assessment -r -64 -p ./terraform
+         
+  Infrastructure:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+            
+        # Runs IAC Test for Terraform
+          - name: Terraform
+            env:
+              CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+              CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+            run: | 
+             git clone https://github.com/chkp-ecarbon/demo-app.git
+             chmod +x ./shiftleft
+             ./shiftleft iac-assessment -r -64 -p ./terraform
          
