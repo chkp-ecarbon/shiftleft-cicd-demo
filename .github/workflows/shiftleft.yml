@@ -14,36 +14,37 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-
+  
 jobs:
-  build:  
-    runs-on: ubuntu-latest
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+ 
+       runs-on: ubuntu-latest
+       steps:
+      
+   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v2
+  
+   # Runs a code scan
+        - name: Run shiftleft code scan
+          env:
 
-      # Runs a code scan
-      - name: Run shiftleft code scan
-        env:
-          CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-          CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
-        run: |
-         chmod +x ./shiftleft
-         git clone https://github.com/chkp-ecarbon/demo-app.git
-         ./shiftleft code-scan -s ./demo-app
-         
-  Infrastructure:
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v2
+           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+          run: |
+           chmod +x ./shiftleft
+           git clone https://github.com/chkp-ecarbon/demo-app.git
+           ./shiftleft code-scan -s ./demo-app
+       
+
+           runs-on: ubuntu-latest
+           steps:
+           - uses: actions/checkout@v2
             
-        # Runs IAC Test for Terraform
-          - name: Terraform
-            env:
-              CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
-              CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
-            run: | 
+   # Runs IAC Test for Terraform
+        - name: Terraform
+          env:
+           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+           run: | 
              git clone https://github.com/chkp-ecarbon/demo-app.git
              chmod +x ./shiftleft
              ./shiftleft iac-assessment -r -64 -p ./terraform
