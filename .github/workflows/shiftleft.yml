@@ -33,7 +33,7 @@ jobs:
            git clone https://github.com/chkp-ecarbon/demo-app.git
            ./shiftleft code-scan -s ./demo-app
            
- eddie2:        
+ Terraform-Scan:        
          runs-on: ubuntu-latest
          steps:
            - uses: actions/checkout@v2
@@ -47,4 +47,18 @@ jobs:
                git clone https://github.com/chkp-ecarbon/demo-app.git
                chmod +x ./shiftleft
                ./shiftleft iac-assessment -r -64 -p ./terraform
+               
+ Docker-Scan:
+           runs-on: ubuntu-latest
+           steps:
+             - uses: actions/checkout@v2
+   # Run a container image scan
+             - name: Docker-Scan
+               env:
+                 CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+                 CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+               run: |
+                 git clone https://github.com/chkp-ecarbon/demo-app.git
+                 dokcer build -t carboncp/myapp ./demp-app
+                 docker save -o myapp.tar /ecarboncp/myapp
          
