@@ -16,7 +16,7 @@ on:
   workflow_dispatch:
   
 jobs:
- eddie:
+ Code-Scan:
        runs-on: ubuntu-latest
        steps:
       
@@ -39,7 +39,7 @@ jobs:
            - uses: actions/checkout@v2
             
    # Runs IAC Test for Terraform
-           - name: Terraform
+           - name: Terraform-Scan
              env:
               CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
               CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
