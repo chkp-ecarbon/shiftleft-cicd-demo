@@ -61,4 +61,6 @@ jobs:
                  git clone https://github.com/chkp-ecarbon/demo-app.git
                  dokcer build -t carboncp/myapp ./demp-app
                  docker save -o myapp.tar /ecarboncp/myapp
+                 chmod +x .shiftleft
+                 ./shiftleft image-scan -i myapp.tar
          
