@@ -31,7 +31,7 @@ jobs:
           run: |
            chmod +x ./shiftleft
            git clone https://github.com/chkp-ecarbon/demo-app.git
-           ./shiftleft code-scan -sev-l Low -s ./demo-app
+           ./shiftleft code-scan -sev-l Unknown -s ./demo-app
            
  Terraform-Scan:        
          runs-on: ubuntu-latest
