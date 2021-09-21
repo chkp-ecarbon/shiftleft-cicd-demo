@@ -6,7 +6,7 @@
 trigger:
 - master
 
-- job: SourceCodeScanningDockerLatest
+- job: SourceCodeScanningDocker
   pool:
     vmImage: 'ubuntu-latest'
     
