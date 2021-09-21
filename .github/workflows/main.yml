@@ -22,6 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
        - uses: actions/checkout@v2
 
+      # Runs a code scan
        - name: Run shiftleft code scan
          env:
            CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
@@ -30,4 +31,19 @@ jobs:
            chmod +x ./shiftleft
            git clone https://github.com/chkp-ecarbon/demo-app.git
            ./shiftleft code-scan -sev Unknown -s ./demo-app
+           
+  Terraform-Scan:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+    # Runs IAC Test for Terraform
+        - name: Terraform
+          env:
+           CHKP_CLOUDGUARD_ID: ${{ secrets.CHKP_CLOUDGUARD_ID }}
+           CHKP_CLOUDGUARD_SECRET: ${{ secrets.CHKP_CLOUDGUARD_SECRET }}
+          run: | 
+           git clone https://github.com/chkp-ecarbon/demo-app.git
+           chmod +x ./shiftleft
+           ./shiftleft iac-assessment -r -64 -p ./terraform
+   
     
